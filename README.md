@@ -3,8 +3,8 @@ Frogger (Bug)
 
 How to run
 ================
-copy file and open index file on a browser.
+clone this file and open the index file on a browser to play.
 
 How to play
 ================
-Use the arrow keys to avoid bugs and reach the water cubes
+Use the arrow keys to avoid bugs and reach the water at the end

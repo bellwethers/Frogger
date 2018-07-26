@@ -1,3 +1,4 @@
+"use strict";
 //create an array of starting points(y) and speed.
 var startingPoint = [50, 140, 225];
 var eSpeed = [20, 40, 80, 90];
