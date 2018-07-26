@@ -16,8 +16,17 @@ class chara {
 
 
 //-----ENEMY-----//
+class Enemy extends chara{
+  constructor (x, y, sprite){
+    super();
+    this.x = -100;
+    this.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
+    this.sprite = 'images/enemy-bug.png';
+    this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
+  }
+};
 // Enemies our player must avoid
-var Enemy = function() {
+/*var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -34,7 +43,7 @@ var Enemy = function() {
     //the speed is picked randomly from array
     this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
 
-};
+}; */
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -139,7 +148,7 @@ for (var i = 0; i < enemyAmount; i++) {
 // Place the player object in a variable called player
 
 var player = new player();
-var chara = new chara();
+//var chara = new chara();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
