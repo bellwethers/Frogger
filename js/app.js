@@ -110,17 +110,17 @@ class player extends chara{
 };*/
 
 player.prototype.again = function() {
-    _player.y = 400;
-    _player.x = 200;
+    this.y = 400;
+    this.x = 200;
     win = false;
 };
 //update()
 player.prototype.update = function(dt) {
     //Win?
-    if (_player.y <= 20 && win == false) {
+    if (this.y <= 20 && win == false) {
         win = true;
         setTimeout(function() {
-            _player.again();
+            this.again();
             alert("You win! Want to play again?");
         }, 500);
 
