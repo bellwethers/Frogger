@@ -113,16 +113,19 @@ player.prototype.again = function() {
     this.y = 400;
     this.x = 200;
     win = false;
+    winMessage.style.display = "none";
 };
 //update()
 player.prototype.update = function(dt) {
     //Win?
+    var winMessage = document.getElementById('winMessage');
     if (this.y <= 20 && win == false) {
         win = true;
+        winMessage.style.display = "block";
         setTimeout(function() {
-            this.again();
-            alert("You win! Want to play again?");
-        }, 500);
+            _player.again();
+            //alert("You win! Want to play again?");
+        }, 900);
 
         console.log("win ");
 
