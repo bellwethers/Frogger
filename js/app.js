@@ -2,52 +2,35 @@
 //create an array of starting points(y) and speed.
 var startingPoint = [50, 140, 225];
 var eSpeed = [20, 40, 80, 90];
-//bool so i dont keep getting 'win' alerts when less than 0
+//bool so i dont keep getting 'win' alerts when player is less than 0
 var win = false;
 
 //-----CHARCTER-------//
+/*A class that extends to the enemy and player with useful constructors*/
 class chara {
-  constructor(x, y, sprite){
-  this.x = x;
-  this.y = y;
-  this.sprite= sprite;
-  }
+    constructor(x, y, sprite) {
+        this.x = x;
+        this.y = y;
+        this.sprite = sprite;
+    }
 };
-
+//renders the both player and enemy character.
 chara.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 
 //-----ENEMY-----//
-class Enemy extends chara{
-  constructor (x, y, sprite){
-    super();
-    this.x = -100;
-    this.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
-    this.sprite = 'images/enemy-bug.png';
-    this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
-  }
+class Enemy extends chara {
+    constructor(x, y, sprite) {
+        super();
+        this.x = -100;
+        //enemy is given random speed and starting point to give the enemies variation
+        this.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
+        this.sprite = 'images/enemy-bug.png';
+        this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
+    }
 };
-// Enemies our player must avoid
-/*var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-
-    // x,y position
-    this.x = -100;
-    //the y is picked randomly from array
-    this.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
-
-    //speed
-    //the speed is picked randomly from array
-    this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
-
-}; */
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -57,6 +40,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed * dt;
 
+    //----COLLISION------//
     //collision? If x coordinates are the same then their touching
     /* The # is the object's gap(height or width/the space the enemy takes)
     https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection*/
@@ -68,10 +52,7 @@ Enemy.prototype.update = function(dt) {
         console.log("reset player");
         //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
     };
-
-
-
-    //if enemy has reached the end
+    //If the enemy has reached the end of the canvas start from the beginnig again
     if (this.x - 65 > 400) {
         //reset enemy
         // x,y position
@@ -85,30 +66,18 @@ Enemy.prototype.update = function(dt) {
 
 };
 
-// Draw the enemy on the screen, required method for game
-/*Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};*/
 
 //-------PLAYER------//
-class player extends chara{
-  constructor (x, y, sprite){
-    super();
-    this.x = 200;
-    this.y = 400
-    this.sprite = 'images/char-princess-girl.png';
+class player extends chara {
+    constructor(x, y, sprite) {
+        super();
+        this.x = 200;
+        this.y = 400
+        this.sprite = 'images/char-princess-girl.png';
     }
 };
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-/*var player = function() {
-    this.y = 400;
-    this.x = 200;
-    this.sprite = 'images/char-princess-girl.png';
 
-};*/
-
+//IF the player is cought by the enemy start the player over again
 player.prototype.again = function() {
     this.y = 400;
     this.x = 200;
@@ -117,7 +86,7 @@ player.prototype.again = function() {
 };
 //update()
 player.prototype.update = function(dt) {
-    //Win?
+    //Win condition/message
     var winMessage = document.getElementById('winMessage');
     if (this.y <= 20 && win == false) {
         win = true;
@@ -132,10 +101,6 @@ player.prototype.update = function(dt) {
 
     }
 };
-
-/*player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};*/
 
 player.prototype.handleInput = function(keys) {
     if (keys === "left" && this.x > 0) {
@@ -163,7 +128,6 @@ for (var i = 0; i < enemyAmount; i++) {
 // Place the player object in a variable called player
 
 var _player = new player();
-//var chara = new chara();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
