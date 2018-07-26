@@ -129,6 +129,7 @@ for (var i = 0; i < enemyAmount; i++) {
 
 var _player = new player();
 
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -141,3 +142,14 @@ document.addEventListener('keyup', function(e) {
 
     _player.handleInput(allowedKeys[e.keyCode]);
 });
+
+//-----TRIGGER OBJECT----//
+class trigger extends chara {
+    constructor(x, y, sprite) {
+        super();
+        this.x = 1;
+        this.y = -40;
+        this.sprite = 'images/selector.png';
+    }
+};
+var _object = new trigger();
