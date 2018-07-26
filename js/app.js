@@ -5,6 +5,16 @@ var eSpeed = [20, 40, 80, 90];
 //bool so i dont keep getting 'win' alerts when less than 0
 var win = false;
 
+//-----CHARCTER-------//
+class chara {
+  constructor(x, y, sprite){
+  this.x = x;
+  this.y = y;
+  this.sprite= sprite;
+  }
+};
+
+
 //-----ENEMY-----//
 // Enemies our player must avoid
 var Enemy = function() {
@@ -129,6 +139,7 @@ for (var i = 0; i < enemyAmount; i++) {
 // Place the player object in a variable called player
 
 var player = new player();
+var chara = new chara();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
