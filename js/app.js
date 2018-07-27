@@ -39,31 +39,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
-
-    //----COLLISION------//
-    //collision? If x coordinates are the same then their touching
-    /* The # is the object's gap(height or width/the space the enemy takes)
-    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection*/
-    if (_player.x < this.x + 60 &&
-        _player.x + 60 > this.x &&
-        _player.y < this.y + 60 &&
-        _player.y + 60 > this.y) {
-        _player.again();
-        console.log("reset player");
-        //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
-    };
-    //If the enemy has reached the end of the canvas start from the beginnig again
-    if (this.x - 65 > 400) {
-        //reset enemy
-        // x,y position
-        this.x = -100;
-        this.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
-
-        //speed
-        this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
-        //console.log("enemy at end");
-    }
-
+    checkCollisions(this);
 };
 
 
@@ -118,16 +94,18 @@ player.prototype.handleInput = function(keys) {
 };
 // Now instantiate your objects.
 
-
+var _Enemy = new Enemy;
+var _player = new player();
+var _object = new trigger();
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 var enemyAmount = 7;
 for (var i = 0; i < enemyAmount; i++) {
-    allEnemies.push(new Enemy);
+    allEnemies.push(_Enemy);
 };
 // Place the player object in a variable called player
 
-var _player = new player();
+
 
 
 // This listens for key presses and sends the keys to your
@@ -143,6 +121,31 @@ document.addEventListener('keyup', function(e) {
     _player.handleInput(allowedKeys[e.keyCode]);
 });
 
+//----COLLISION------//
+function checkCollisions(touched){
+//collision for all objects
+/* The # is the object's gap(height or width/the space the enemy takes)
+https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection*/
+if (_player.x < touched.x + 60 &&
+    _player.x + 60 > touched.x &&
+    _player.y < touched.y + 60 &&
+    _player.y + 60 > touched.y) {
+    _player.again();
+    console.log("reset player");
+    //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
+};
+//If the enemy has reached the end of the canvas start from the beginnig again
+if (_Enemy.x - 65 > 400) {
+    //reset enemy
+    // x,y position
+    _Enemy.x = -100;
+    _Enemy.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
+
+    //speed
+    _Enemy.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
+    //console.log("enemy at end");
+}
+};
 //-----TRIGGER OBJECT----//
 class trigger extends chara {
     constructor(x, y, sprite) {
@@ -152,4 +155,3 @@ class trigger extends chara {
         this.sprite = 'images/selector.png';
     }
 };
-var _object = new trigger();
