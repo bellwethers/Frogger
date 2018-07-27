@@ -4,6 +4,7 @@ var startingPoint = [50, 140, 225];
 var eSpeed = [20, 40, 80, 90];
 //bool so i dont keep getting 'win' alerts when player is less than 0
 var win = false;
+var level = 0;
 
 //-----CHARCTER-------//
 /*A class that extends to the enemy and player with useful constructors*/
@@ -63,8 +64,8 @@ player.prototype.again = function() {
 //update()
 player.prototype.update = function(dt) {
     //Win condition/message
-    var winMessage = document.getElementById('winMessage');
-    if (this.y <= 20 && win == false) {
+    /*var winMessage = document.getElementById('winMessage');
+    if (some condition  && win == false) {
         win = true;
         winMessage.style.display = "block";
         setTimeout(function() {
@@ -75,7 +76,7 @@ player.prototype.update = function(dt) {
         console.log("win ");
 
 
-    }
+    } */
 };
 
 player.prototype.handleInput = function(keys) {
@@ -96,7 +97,7 @@ player.prototype.handleInput = function(keys) {
 
 var _Enemy = new Enemy;
 var _player = new player();
-var _object = new trigger();
+
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 var enemyAmount = 7;
@@ -129,11 +130,17 @@ https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
 if (_player.x < touched.x + 60 &&
     _player.x + 60 > touched.x &&
     _player.y < touched.y + 60 &&
-    _player.y + 60 > touched.y) {
+    _player.y + 60 > touched.y ) {
+    if(touched.constructor.name === "Enemy"){
     _player.again();
-    console.log("reset player");
+    console.log(touched.constructor.name);
     //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
-};
+  }else if (touched.constructor.name === "trigger"){
+    level += 1;
+    _player.again();
+    console.log("new Level "+ level);
+  }
+}
 //If the enemy has reached the end of the canvas start from the beginnig again
 if (_Enemy.x - 65 > 400) {
     //reset enemy
@@ -146,12 +153,18 @@ if (_Enemy.x - 65 > 400) {
     //console.log("enemy at end");
 }
 };
+
 //-----TRIGGER OBJECT----//
 class trigger extends chara {
     constructor(x, y, sprite) {
         super();
-        this.x = 1;
-        this.y = -40;
+        this.x = 1;//1
+        this.y = -40;//-40
         this.sprite = 'images/selector.png';
     }
+};
+var _object = new trigger();
+
+trigger.prototype.update = function() {
+  checkCollisions(this);
 };
