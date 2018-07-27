@@ -3,7 +3,7 @@
 var startingPoint = [50, 140, 225];
 var eSpeed = [20, 40, 80, 90];
 //bool so i dont keep getting 'win' alerts when player is less than 0
-var win = false;
+var touchStar = false;
 var level = 0;
 
 //-----CHARCTER-------//
@@ -58,25 +58,24 @@ class player extends chara {
 player.prototype.again = function() {
     this.y = 400;
     this.x = 200;
-    win = false;
+    touchStar = false;
     winMessage.style.display = "none";
 };
 //update()
-player.prototype.update = function(dt) {
+player.prototype.update = function() {
     //Win condition/message
-    /*var winMessage = document.getElementById('winMessage');
-    if (some condition  && win == false) {
-        win = true;
+    var winMessage = document.getElementById('winMessage');
+    if (level == 1 && this.y <= 20   && touchStar == true) {
         winMessage.style.display = "block";
         setTimeout(function() {
             _player.again();
             //alert("You win! Want to play again?");
         }, 900);
 
-        console.log("win ");
+        console.log(touchStar);
 
 
-    } */
+    }
 };
 
 player.prototype.handleInput = function(keys) {
@@ -134,11 +133,17 @@ if (_player.x < touched.x + 60 &&
       //reset player if touch enemy
     if(touched.constructor.name === "Enemy"){
     _player.again();
+     level = 0;
     console.log(touched.constructor.name);
     //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
     //if touch trigger move to next lvl
   }else if (touched.constructor.name === "trigger"){
-    level += 1;
+    if(level == 0){
+      level = 1;
+    }else if (level == 1){
+      level = 0;
+    };
+    touchStar = true;
     _player.again();
     console.log("new Level "+ level);
   }
