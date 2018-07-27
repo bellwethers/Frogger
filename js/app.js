@@ -131,10 +131,12 @@ if (_player.x < touched.x + 60 &&
     _player.x + 60 > touched.x &&
     _player.y < touched.y + 60 &&
     _player.y + 60 > touched.y ) {
+      //reset player if touch enemy
     if(touched.constructor.name === "Enemy"){
     _player.again();
     console.log(touched.constructor.name);
     //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
+    //if touch trigger move to next lvl
   }else if (touched.constructor.name === "trigger"){
     level += 1;
     _player.again();
@@ -164,6 +166,7 @@ class trigger extends chara {
     }
 };
 var _object = new trigger();
+
 
 trigger.prototype.update = function() {
   checkCollisions(this);
