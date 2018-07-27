@@ -78,7 +78,7 @@ player.prototype.update = function() {
     //Win condition/message
     var winMessage = document.getElementById('winMessage');
     if (level == 0 && touchStar == true) {
-      level = 1;
+        level = 1;
         _player.again();
     };
     if (level == 1 && touchStar == true) {
@@ -90,7 +90,7 @@ player.prototype.update = function() {
         }, 900);
 
         //console.log(touchStar);
-console.log("new Level "+ level+ " touchStar "+ touchStar);
+        console.log("new Level " + level + " touchStar " + touchStar);
 
     }
 
@@ -140,35 +140,35 @@ document.addEventListener('keyup', function(e) {
 });
 
 //----COLLISION------//
-function checkCollisions(touched){
-//collision for all objects
-/* The # is the object's gap(height or width/the space the enemy takes)
-https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection*/
-if (_player.x < touched.x + 60 &&
-    _player.x + 60 > touched.x &&
-    _player.y < touched.y + 60 &&
-    _player.y + 60 > touched.y ) {
-      //reset player if touch enemy
-    if(touched.constructor.name === "Enemy"){
-    _player.again();
-     level = 0;
-    console.log(touched.constructor.name);
-    //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
-    //if touch trigger move to next lvl
-  }else if (touched.constructor.name === "trigger"){
-    touchStar = true;
+function checkCollisions(touched) {
+    //collision for all objects
+    /* The # is the object's gap(height or width/the space the enemy takes)
+    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection*/
+    if (_player.x < touched.x + 60 &&
+        _player.x + 60 > touched.x &&
+        _player.y < touched.y + 60 &&
+        _player.y + 60 > touched.y) {
+        //reset player if touch enemy
+        if (touched.constructor.name === "Enemy") {
+            _player.again();
+            level = 0;
+            console.log(touched.constructor.name);
+            //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
+            //if touch trigger move to next lvl
+        } else if (touched.constructor.name === "trigger") {
+            touchStar = true;
 
-    console.log("new Level "+ level);
-  }
-}
+            console.log("new Level " + level);
+        }
+    }
 };
 
 //-----TRIGGER OBJECT----//
 class trigger extends chara {
     constructor(x, y, sprite) {
         super();
-        this.x = 1;//1
-        this.y = -40;//-40
+        this.x = 1; //1
+        this.y = -40; //-40
         this.sprite = 'images/selector.png';
     }
 };
@@ -176,5 +176,5 @@ var _object = new trigger();
 
 
 trigger.prototype.update = function() {
-  checkCollisions(this);
+    checkCollisions(this);
 };
