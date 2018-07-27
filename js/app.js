@@ -41,6 +41,18 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed * dt;
     checkCollisions(this);
+
+    //If the enemy has reached the end of the canvas start from the beginnig again
+    if (this.x - 65 > 400) {
+        //reset enemy
+        // x,y position
+        this.x = -100;
+        this.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
+
+        //speed
+        this.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
+        //console.log("enemy at end");
+    }
 };
 
 
@@ -100,14 +112,14 @@ player.prototype.handleInput = function(keys) {
 };
 // Now instantiate your objects.
 
-var _Enemy = new Enemy;
+
 var _player = new player();
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 var enemyAmount = 7;
 for (var i = 0; i < enemyAmount; i++) {
-    allEnemies.push(_Enemy);
+    allEnemies.push(new Enemy);
 };
 // Place the player object in a variable called player
 
@@ -148,17 +160,6 @@ if (_player.x < touched.x + 60 &&
 
     console.log("new Level "+ level);
   }
-}
-//If the enemy has reached the end of the canvas start from the beginnig again
-if (_Enemy.x - 65 > 400) {
-    //reset enemy
-    // x,y position
-    _Enemy.x = -100;
-    _Enemy.y = startingPoint[Math.floor(Math.random() * startingPoint.length)];
-
-    //speed
-    _Enemy.speed = eSpeed[Math.floor(Math.random() * eSpeed.length)];
-    //console.log("enemy at end");
 }
 };
 
