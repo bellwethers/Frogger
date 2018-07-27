@@ -65,17 +65,23 @@ player.prototype.again = function() {
 player.prototype.update = function() {
     //Win condition/message
     var winMessage = document.getElementById('winMessage');
-    if (level == 1 && this.y <= 20   && touchStar == true) {
+    if (level == 0 && touchStar == true) {
+      level = 1;
+        _player.again();
+    };
+    if (level == 1 && touchStar == true) {
         winMessage.style.display = "block";
         setTimeout(function() {
             _player.again();
+            level = 0;
             //alert("You win! Want to play again?");
         }, 900);
 
-        console.log(touchStar);
-
+        //console.log(touchStar);
+console.log("new Level "+ level+ " touchStar "+ touchStar);
 
     }
+
 };
 
 player.prototype.handleInput = function(keys) {
@@ -138,13 +144,8 @@ if (_player.x < touched.x + 60 &&
     //console.log(allEnemies.indexOf(this) , this.y+ " speed "+ this.speed);
     //if touch trigger move to next lvl
   }else if (touched.constructor.name === "trigger"){
-    if(level == 0){
-      level = 1;
-    }else if (level == 1){
-      level = 0;
-    };
     touchStar = true;
-    _player.again();
+
     console.log("new Level "+ level);
   }
 }
