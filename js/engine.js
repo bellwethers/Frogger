@@ -94,6 +94,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         _player.update();
+        _object.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -102,18 +103,38 @@ var Engine = (function(global) {
      * they are flipbooks creating the illusion of animation but in reality
      * they are just drawing the entire screen over and over.
      */
+     var lvl1 = [
+     'images/water-block.png',   // Top row is water
+     'images/stone-block.png',   // Row 1 of 3 of stone
+     'images/stone-block.png',   // Row 2 of 3 of stone
+     'images/stone-block.png',   // Row 3 of 3 of stone
+     'images/grass-block.png',   // Row 1 of 2 of grass
+     'images/grass-block.png'
+   ];
+
+   var lvl2 = [
+     'images/stone-block.png',
+     'images/Brown-Block.png',
+     'images/Brown-Block.png',
+     'images/Plain-Block.png',
+     'images/Dirt-Block.png',
+     'images/Dirt-Block.png'
+   ];
+
+
+
+
     function render() {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
+         if (level == 0){
+           var currentLvl = lvl1;
+         }else if (level == 1){
+           currentLvl = lvl2;
+         };
+
+        var rowImages = currentLvl,
             numRows = 6,
             numCols = 5,
             row, col;
@@ -177,7 +198,13 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/char-princess-girl.png',
         'images/char-cat-girl.png',
-        'images/selector.png'
+        'images/selector.png',
+        'images/stone-block.png',
+        'images/stone-block.png',
+        'images/Brown-Block.png',
+        'images/Wood-Block.png',
+        'images/Plain-Block.png',
+        'images/Dirt-Block.png'
     ]);
     Resources.onReady(init);
 
